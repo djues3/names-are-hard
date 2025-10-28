@@ -19,7 +19,9 @@ object KotlinScriptExecutor : ScriptExecutor {
 
 fun runScript(script: String): Flow<ExecutionEvent> = channelFlow {
     val command = listOf("/usr/bin/env", "kotlinc", "-script", script)
-    val process = ProcessBuilder(command).redirectErrorStream(false).start()
+    val process = ProcessBuilder(command)
+        .redirectErrorStream(false)
+        .start()
     send(ExecutionEvent.Started)
 
     launch {
