@@ -2,6 +2,7 @@ package com.djues3.names_are_hard.script
 
 import androidx.compose.runtime.snapshotFlow
 import com.djues3.names_are_hard.utils.withTempFile
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
@@ -41,5 +42,12 @@ fun runScript(script: String): Flow<ExecutionEvent> = channelFlow {
         }
     }
 
-    send(ExecutionEvent.Finished(process.waitFor()))
+    try {
+        send(ExecutionEvent.Finished(process.waitFor()))
+    } catch (e: CancellationException) {
+        println("Cancelled script execution")
+        process.destroyForcibly()
+        process.waitFor()
+        throw e
+    }
 }.flowOn(Dispatchers.IO)

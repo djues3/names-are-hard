@@ -43,6 +43,10 @@ fun EditorScreen(viewModel: EditorViewModel) {
                 Text(if (state.isRunning) "Please wait for the script to finish..." else "Run")
             }
 
+
+            Button(onClick = { viewModel.cancelExecution() }, enabled = state.isRunning && !state.isCancelling, modifier = Modifier) {
+                Text(if (state.isCancelling) "Cancelling..." else "Cancel")
+            }
         }
     }
 }

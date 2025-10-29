@@ -5,5 +5,6 @@ data class EditorState(
     val output: String = "",
     val error: String = "",
     val isRunning: Boolean = false,
+    val isCancelling: Boolean = false,
     val exitCode: Int? = null,
 )
