@@ -1,7 +1,5 @@
 package com.djues3.names_are_hard.highlighting
 
-import CodeSnippet
-
 class KotlinHighlighter : CodeHighlighter {
     private val keywordHighlighter = KeywordHighlighter(keywords)
     override fun highlight(code: String): Sequence<CodeSnippet> = keywordHighlighter.highlight(code)

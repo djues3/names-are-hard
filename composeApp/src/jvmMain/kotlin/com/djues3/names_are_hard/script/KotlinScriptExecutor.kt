@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 object KotlinScriptExecutor : ScriptExecutor {
     override suspend fun execute(script: String): Flow<ExecutionEvent> = flow {
         withTempFile(script, "script_", ".kts") {
+            println("Executing script: $it")
             runScript(it).collect { event -> emit(event) }
         }
     }
