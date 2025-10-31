@@ -8,10 +8,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.djues3.names_are_hard.highlighting.KotlinHighlighter
 import com.djues3.names_are_hard.ui.editor.components.CodeEditorView
 import com.djues3.names_are_hard.ui.editor.components.OutputView
+import com.djues3.names_are_hard.ui.theme.Red
 
 
 @Composable
@@ -30,7 +35,7 @@ fun EditorScreen(viewModel: EditorViewModel) {
                 highlighter = KotlinHighlighter()
             )
             OutputView(
-                content = state.output.ifEmpty { "No output" }, modifier = Modifier.weight(1f).fillMaxHeight()
+                content = state.output, modifier = Modifier.weight(1f).fillMaxHeight()
             )
         }
 
@@ -50,5 +55,3 @@ fun EditorScreen(viewModel: EditorViewModel) {
         }
     }
 }
-
-

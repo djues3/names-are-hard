@@ -15,7 +15,7 @@ import com.djues3.names_are_hard.ui.theme.Theme
 @Composable
 fun App() {
     val editorViewModel = EditorViewModel(KotlinScriptExecutor)
-    editorViewModel.updateScript("fun main() {\n    val msg = \"Hello world!\"\n    println(msg)\n}\nmain()")
+    editorViewModel.updateScript("val msg = \"Hello world!\"\nprintln(msg)")
     Surface(modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize()) {
         EditorScreen(editorViewModel)
     }
