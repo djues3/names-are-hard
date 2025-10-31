@@ -20,7 +20,7 @@ class KotlinErrorParserTest {
     fun `test that error location is parsed correctly`() {
         val parser = KotlinErrorParser
         var errorLine = "/tmp/script_3429566310633152166.kts:2:12: error: expecting ')'"
-        val expected = ErrorLocation(2, 12,  36..39)
+        val expected = ErrorLocation(2, 12, 36..39)
         var actual = parser.parse(errorLine)
         assertEquals(expected, actual)
 
