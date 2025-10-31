@@ -9,7 +9,7 @@ class KotlinHighlighter : CodeHighlighter {
 // NOTE: this only contains hard keywords
 private val keywords = setOf(
     "as",
-    "as?",
+    "as\\?",
     "break",
     "class",
     "continue",
