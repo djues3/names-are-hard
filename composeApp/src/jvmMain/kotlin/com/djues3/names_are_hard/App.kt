@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.djues3.names_are_hard.errors.KotlinErrorParser
+import com.djues3.names_are_hard.highlighting.KotlinHighlighter
 import com.djues3.names_are_hard.script.KotlinScriptExecutor
 import com.djues3.names_are_hard.ui.editor.EditorScreen
 import com.djues3.names_are_hard.ui.editor.EditorViewModel
@@ -29,6 +29,6 @@ fun App() {
     }
 
     Surface(modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize()) {
-        EditorScreen(editorViewModel)
+        EditorScreen(editorViewModel, KotlinHighlighter())
     }
 }

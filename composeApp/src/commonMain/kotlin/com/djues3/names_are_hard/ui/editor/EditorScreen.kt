@@ -12,13 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
+import com.djues3.names_are_hard.highlighting.CodeHighlighter
 import com.djues3.names_are_hard.highlighting.KotlinHighlighter
 import com.djues3.names_are_hard.ui.editor.components.CodeEditorView
 import com.djues3.names_are_hard.ui.editor.components.OutputView
 
 
 @Composable
-fun EditorScreen(viewModel: EditorViewModel) {
+fun EditorScreen(viewModel: EditorViewModel, highlighter: CodeHighlighter) {
     val state by viewModel.state.collectAsState()
     val editorFocusRequester = remember { FocusRequester() }
 
@@ -30,7 +31,7 @@ fun EditorScreen(viewModel: EditorViewModel) {
             CodeEditorView(
                 content = state.script,
                 onContentChange = { viewModel.updateScript(it) },
-                highlighter = KotlinHighlighter(),
+                highlighter = highlighter,
                 focusRequester = editorFocusRequester,
                 navigationEvent = viewModel.navigationEvent,
                 modifier = Modifier.weight(1f).fillMaxHeight().focusRequester(editorFocusRequester),

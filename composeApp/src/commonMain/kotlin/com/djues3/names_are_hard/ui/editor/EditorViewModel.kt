@@ -4,19 +4,15 @@ import androidx.compose.ui.text.TextRange
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.djues3.names_are_hard.errors.ErrorLocation
-import com.djues3.names_are_hard.errors.KotlinErrorParser
+import com.djues3.names_are_hard.errors.ErrorParser
 import com.djues3.names_are_hard.script.ExecutionEvent
 import com.djues3.names_are_hard.script.ScriptExecutor
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class EditorViewModel(private val executor: ScriptExecutor, private val errorParser: KotlinErrorParser) : ViewModel() {
+class EditorViewModel(private val executor: ScriptExecutor, private val errorParser: ErrorParser) : ViewModel() {
 
     private val _state = MutableStateFlow(EditorState())
     val state = _state.asStateFlow()
