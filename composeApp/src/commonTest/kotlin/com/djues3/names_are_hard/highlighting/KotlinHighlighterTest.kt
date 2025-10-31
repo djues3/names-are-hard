@@ -1,5 +1,5 @@
-import com.djues3.names_are_hard.highlighting.KotlinHighlighter
-import com.djues3.names_are_hard.highlighting.SnippetType
+package com.djues3.names_are_hard.highlighting
+
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

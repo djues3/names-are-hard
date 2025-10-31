@@ -1,27 +1,40 @@
 package com.djues3.names_are_hard.ui.editor.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.TextFieldValue
 import com.djues3.names_are_hard.highlighting.CodeHighlighter
 import com.djues3.names_are_hard.highlighting.SnippetType
 import com.djues3.names_are_hard.ui.theme.Mauve
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
 
+@OptIn(FlowPreview::class)
 @Composable
 fun CodeEditorView(
     content: String,
     onContentChange: (String) -> Unit,
     highlighter: CodeHighlighter,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    focusRequester: FocusRequester,
+    navigationEvent: Flow<TextRange>?,
 ) {
     var textFieldValue by remember {
         mutableStateOf(TextFieldValue(content))
+    }
+
+    LaunchedEffect(Unit) {
+        navigationEvent?.collect {
+            println("Navigation event: $it")
+            textFieldValue = textFieldValue.copy(selection = it)
+            focusRequester.requestFocus()
+        }
     }
 
     TextField(

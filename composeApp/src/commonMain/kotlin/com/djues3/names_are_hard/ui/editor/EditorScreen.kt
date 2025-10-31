@@ -6,22 +6,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import com.djues3.names_are_hard.highlighting.KotlinHighlighter
 import com.djues3.names_are_hard.ui.editor.components.CodeEditorView
 import com.djues3.names_are_hard.ui.editor.components.OutputView
-import com.djues3.names_are_hard.ui.theme.Red
 
 
 @Composable
 fun EditorScreen(viewModel: EditorViewModel) {
     val state by viewModel.state.collectAsState()
+    val editorFocusRequester = remember { FocusRequester() }
 
     Column(modifier = Modifier.fillMaxHeight()) {
         Row(
@@ -31,12 +30,15 @@ fun EditorScreen(viewModel: EditorViewModel) {
             CodeEditorView(
                 content = state.script,
                 onContentChange = { viewModel.updateScript(it) },
-                modifier = Modifier.weight(1f).fillMaxHeight(),
-                highlighter = KotlinHighlighter()
+                highlighter = KotlinHighlighter(),
+                focusRequester = editorFocusRequester,
+                navigationEvent = viewModel.navigationEvent,
+                modifier = Modifier.weight(1f).fillMaxHeight().focusRequester(editorFocusRequester),
             )
             OutputView(
-                content = state.output, modifier = Modifier.weight(1f).fillMaxHeight()
-            )
+                content = state.output, modifier = Modifier.weight(1f).fillMaxHeight(), onErrorClick = {
+                    viewModel.navigateToError(it)
+                })
         }
 
         Column(
@@ -49,7 +51,11 @@ fun EditorScreen(viewModel: EditorViewModel) {
             }
 
 
-            Button(onClick = { viewModel.cancelExecution() }, enabled = state.isRunning && !state.isCancelling, modifier = Modifier) {
+            Button(
+                onClick = { viewModel.cancelExecution() },
+                enabled = state.isRunning && !state.isCancelling,
+                modifier = Modifier
+            ) {
                 Text(if (state.isCancelling) "Cancelling..." else "Cancel")
             }
         }
