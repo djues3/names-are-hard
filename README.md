@@ -23,6 +23,18 @@ The project assumes JDK 21, but it might work with other versions.
 `kotlinc` is required and it must be in the `PATH`.
 
 ---
+## Screenshots
+<img width="990" height="697" alt="image" src="https://github.com/user-attachments/assets/b8da58c2-aec8-40e3-828f-16b5701e7636" />
+
+<img width="990" height="697" alt="image" src="https://github.com/user-attachments/assets/ad051828-5481-417f-a391-b0d00f25ab58" />
+
+<img width="990" height="697" alt="image" src="https://github.com/user-attachments/assets/2364027c-f201-4792-bde2-45d806890dae" />
+
+<img width="990" height="697" alt="image" src="https://github.com/user-attachments/assets/28181331-f2ba-476f-a6ef-e6e67179648f" />
+
+
+---
+
 
 This is a Kotlin Multiplatform project targeting Desktop (JVM).
 
